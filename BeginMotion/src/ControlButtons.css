@@ -1,0 +1,11 @@
+/* Style sheet for ControlButtons */
+
+
+.buttons {
+    color:white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    gap: 10px;;
+    
+  }
+  

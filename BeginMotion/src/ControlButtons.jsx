@@ -1,11 +1,15 @@
 import React from 'react';
+import './ControlButtons.css'; // import ControlButtons external CSS stylesheet
 
-function ControlButtons({startStopWatch,pauseStopWatch, resetStopWatch }) {
+
+function ControlButtons({isRunning,pauseStopWatch, resetStopWatch }) {
   return (
     <div className="buttons">
-      <button onClick={startStopWatch}>Start</button>
-      <button onClick={pauseStopWatch}>Pause</button>
+      <button onClick={pauseStopWatch}>
+        {isRunning ? 'Pause' : 'Start'}
+      </button> 
       <button onClick={resetStopWatch}>Reset</button>
+      
     </div>
   );
 }

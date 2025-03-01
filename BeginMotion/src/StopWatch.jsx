@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import ControlButtons from './ControlButtons'
+import ControlButtons from './ControlButtons';
+import List from './List'; // Import IntervalList component
+import './StopWatch.css'; // import StopWatch external CSS stylesheet
 
-//StopWatch function and useState elements
-function StopWatch(){
-  const [time, setTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
-  const isPaused = !isRunning;
+// StopWatch function and useState 
+function StopWatch() {
+  const [time, setTime] = useState(0); //state for timer
+  const [isRunning, setIsRunning] = useState(false);//state to indicate stopwatch is running
+  const [list, setList] = useState([]); // array to store intervals
 
   useEffect(() => {
     let interval = null;
@@ -23,38 +25,62 @@ function StopWatch(){
     };
   }, [isRunning]);
 
-
-    const startStopWatch = () => {
-      setIsRunning(true);
+  // Handle Interval recording
+  const handleInterval = () => {
+    setList((prevList) => [...prevList, time]); // Push the current time to list
   };
-    const pauseStopWatch = () =>{
-      setIsRunning(!isRunning);
-    };
 
-    const resetStopWatch = () => {
-      setIsRunning(false);
-      setTime(0);
-    };
+  const startStopWatch = () => {
+    setIsRunning(true);
+  };
 
+  const pauseStopWatch = () => {
+    setIsRunning(!isRunning);
+  };
 
+  const resetStopWatch = () => {
+    setIsRunning(false);
+    setTime(0);
+    setList([]); // Clear list on reset
+  };
+  
 
-    
   return (
     <div>
-        <h1>Welcome to BeginMotion</h1>
-        <span>
-        {Math.floor(time / 60000)}:
-        {String(Math.floor((time % 60000) / 1000)).padStart(2, "0")}:
-        {String(time % 1000).padStart(3, "0")}</span> 
+      <h1>BeginMotion</h1>
+      <div className="stopwatch">
+        <span className="timer">
+          {formatTime(time)}
+        </span>
+        <span className="buttons">
         <ControlButtons 
-        isRunning={isRunning} 
-        startStopWatch={startStopWatch} 
-        pauseStopWatch={pauseStopWatch} 
-        resetStopWatch={resetStopWatch} 
-      />
+          isRunning={isRunning}
+          startStopWatch={startStopWatch}
+          pauseStopWatch={pauseStopWatch}
+          resetStopWatch={resetStopWatch}
+        />
+        <button className="button" onClick={handleInterval}>Interval</button>
+        </span>
+        <button className="progress-button" onClick={() => {}}>Progress</button>
+      </div>
+      <List list={list} /> {/* Display the list of intervals */}
     </div>
   );
+}
 
+// Format time to hh:mm:ss.mmm
+const formatTime = (time) => {
+  const minutes = Math.floor((time % 3600000) / 60000);
+  const seconds = Math.floor((time % 60000) / 1000);
+  const milliSeconds = time % 1000;
+
+  return (
+    String(minutes).padStart(2, "0") +
+    ":" +
+    String(seconds).padStart(2, "0") +
+    "." +
+    String(milliSeconds).padStart(3, "0")
+  );
 };
 
 export default StopWatch;
