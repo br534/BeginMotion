@@ -1,0 +1,22 @@
+.interval-list {
+    margin-top: 20px;
+}
+
+.interval-list h3 {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+}
+
+.interval-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.interval-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 5px 10px 5px;
+}
