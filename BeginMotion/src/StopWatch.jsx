@@ -1,4 +1,3 @@
-// StopWatch.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import ControlButtons from './ControlButtons';
@@ -52,8 +51,15 @@ function StopWatch() {
     setIntervalsRecorded(false); // Reset the intervals recorded flag
   };
 
+  const saveSplitsToLocalStorage = () => {
+    const historicalSplits = JSON.parse(localStorage.getItem("historicalSplits")) || [];
+    const newSession = { totalTime: time, splits: list };
+    historicalSplits.push(newSession);
+    localStorage.setItem("historicalSplits", JSON.stringify(historicalSplits));
+  };
+
   const goToProgressPage = () => {
-    // Pass totalTime and intervals even if no intervals have been recorded
+    saveSplitsToLocalStorage(); // Save splits to localStorage when navigating to ProgressPage
     navigate('/progress', { state: { list, totalTime: time } });
   };
 
@@ -73,14 +79,12 @@ function StopWatch() {
           />
           <button className="button" onClick={handleInterval}>Interval</button>
         </span>
-        <button className="progress-button" onClick={goToProgressPage}>Progress</button>
+        <button className="progress-button" onClick={goToProgressPage}> View Progress</button>
       </div>
 
-      {/* Conditionally render the interval information only when intervals are recorded */}
+      
       {intervalsRecorded && (
-        <>
-          <List list={list} /> {/* Display the list of intervals */}
-        </>
+          <List list={list} /> 
       )}
     </div>
   );
@@ -102,4 +106,3 @@ const formatTime = (time) => {
 }
 
 export default StopWatch;
-

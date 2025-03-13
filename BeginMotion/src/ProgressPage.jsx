@@ -24,33 +24,38 @@ const formatTime = (time) => {
 function ProgressPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { list, totalTime } = location.state || {};
+  const {totalTime } = location.state || {}; // total time from list
 
-  const mapContainer = useRef(null); 
-  const [map, setMap] = useState(null); 
+  const [historicalSplits, setHistoricalSplits] = useState([]); // storing historical splits
 
-  // Coordinates for Philadelphia,PA
-  const markerLongitude = -75.1635262; 
-  const markerLatitude = 39.9527237; 
+  useEffect(() => {
+    // Fetch historical splits from localStorage
+    const storedSplits = JSON.parse(localStorage.getItem("historicalSplits")) || [];
+    setHistoricalSplits(storedSplits);
+  }, []);
+
+  const mapContainer = useRef(null);
+  const [map, setMap] = useState(null);
+
+  // Coordinates for Philadelphia, PA
+  const markerLongitude = -75.1635262;
+  const markerLatitude = 39.9527237;
 
   useEffect(() => {
     if (mapContainer.current) {
-      // Creating MapBox map
       const mapInstance = new mapboxgl.Map({
         container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/streets-v11', 
-        center: [markerLongitude, markerLatitude], 
+        style: 'mapbox://styles/mapbox/light-v11',
+        center: [markerLongitude, markerLatitude],
         zoom: 12,
       });
 
-      //Marker for map
       new mapboxgl.Marker()
         .setLngLat([markerLongitude, markerLatitude])
         .addTo(mapInstance);
 
       setMap(mapInstance);
 
-      // Clean up on component unmount
       return () => {
         if (mapInstance) {
           mapInstance.remove();
@@ -59,25 +64,45 @@ function ProgressPage() {
     }
   }, [markerLongitude, markerLatitude]);
 
-  return (
-    <div className="progress-container">
-      <h1>BeginMotion</h1>
-      <h2>Progress</h2>
-      {/* Display Total Time */}
-      <h3>Total Time: {formatTime(totalTime)}</h3>
+  // Fallback for totalTime if it's undefined or null
+  const displayTotalTime = totalTime ? formatTime(totalTime) : "00:00.00";
 
+  return (
+    <>
+      <h1>BeginMotion</h1>
+
+      {/* Display Total Time for Current Session */}
+      <div className="current-session-total-time">
+        <h4>Total Time: {displayTotalTime}</h4>
+      </div>
+
+      {/* Display Historical Session Total Time */}
+      <h4>History</h4>
+      {historicalSplits.length === 0 ? (
+        <p>No historical sessions available.</p>
+      ) : (
+        <div className="historical-sessions-container">
+          {historicalSplits.map((session, index) => (
+            <div key={index}>
+              <h4>Session {index + 1}: {formatTime(session.totalTime)}</h4>
+              {/* Do not show splits here, just the total time */}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Back Button */}
       <button className="back-button" onClick={() => navigate(-1)}>Back</button>
 
       {/* Map Container */}
+      <h4>Current Location</h4>
       <div style={{ marginTop: '20px' }}>
         <div
           ref={mapContainer}
           style={{ width: '100%', height: '200px' }} // Ensure the map container has height and width
         />
       </div>
-    </div>
+    </>
   );
 }
 

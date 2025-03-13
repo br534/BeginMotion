@@ -1,33 +1,94 @@
 /* Container for the entire page */
-
-.progress-container {
-  position: static;
-  font-size: 18px;
+h1 {
+  text-align: center;
+  color: white;
+  font-size: 3.2em;
+  line-height: 1.1;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-/* Style for the back button in the upper left corner */
-.back-button {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  padding: 10px 15px;
-  background-color: #007bff;
+.current-session-total-time {
+  text-align: center;
   color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+/* Mobile Media Queries */
+
+/* For screens smaller than or equal to 768px (tablets and below) */
+@media (max-width: 768px) {
+
+  h1 {
+    font-size: 2.5em; /* Reduce font size for smaller screens */
+    line-height: 1.2; /* Adjust line height for better readability */
+  }
+
+  .current-session-total-time {
+    font-size: 1.2em; /* Slightly smaller font size */
+  }
+
+  .historical-sessions-container {
+    max-width: 90%; /* Take up more space on smaller screens */
+    max-height: 200px; /* Allow more height */
+    padding: 15px; /* Increase padding for better readability */
+  }
+
+  /* Position the back button at a more accessible place on small screens */
+  .back-button {
+    top: 10px; /* Move button closer to the top edge */
+    left: 10px; /* Move button closer to the left edge */
+    padding: 8px 16px; /* Adjust padding for smaller screens */
+  }
+
+  ul {
+    padding: 5px; /* Add some padding around the list */
+  }
+
+  h3 {
+    font-size: 1.8em; /* Make h3 text slightly smaller */
+  }
+
+  h4 {
+    font-size: 1.4em; /* Adjust h4 font size for better fit */
+  }
+
 }
 
-.back-button:hover {
-  background-color: #0056b3;
+.historical-sessions-container {
+  max-height: 150px; 
+  overflow-y: auto;  
+  margin-top: 20px;
+  max-width: 200px;
+  border: 2px solid white; /* Add a white border */
+  padding: 10px; /* Optional padding for better spacing inside the container */
+  border-radius: 5px; /* Optional: Adds rounded corners to the border */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Style for the map container (optional: you can adjust based on your design) */
-#map {
-  width: 100%;
-  height: 400px;
+/* Position the back button in the upper left corner */
+.back-button {
+  position: absolute;  /* Enables absolute positioning */
+  top: 20px;  /* Adjusts the distance from the top */
+  left: 20px; /* Adjusts the distance from the left */
+  padding: 10px 20px; /* Optional: Adds padding for a better look */
+  background-color:dimgray;
+  color: white; /* Text color */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Optional: Adds rounded corners to the button */
+  cursor: pointer; /* Optional: Adds a pointer cursor on hover */
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+h4 {
+  margin-bottom: 10px;
+}
+
+h3 {
   margin-top: 20px;
 }
+

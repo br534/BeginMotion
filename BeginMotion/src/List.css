@@ -1,3 +1,4 @@
+/* Default (Desktop) Styles */
 .interval-list {
     margin-top: 20px;
 }
@@ -20,3 +21,32 @@
     align-items: center;
     margin: 0px 5px 10px 5px;
 }
+
+/* Mobile Media Queries */
+@media (max-width: 768px) {
+  /* Adjusting the interval list margin for mobile */
+  .interval-list {
+    margin-top: 15px;  /* Reduce top margin for better spacing */
+  }
+
+  /* Making the h3 title more mobile-friendly */
+  .interval-list h3 {
+    font-size: 1.4em;  /* Reduce font size */
+    text-align: center; /* Center-align the heading */
+    margin: 10px 0;     /* Add some space above and below the heading */
+  }
+
+  /* Adjusting the list items to fit better on mobile */
+  .interval-list li {
+    flex-direction: column;   /* Stack items vertically on small screens */
+    margin: 5px 0 10px 0;     /* Adjust margins for better spacing */
+    align-items: flex-start;  /* Align items to the left for better readability */
+  }
+
+  /* Optional: Adjust spacing inside each list item */
+  .interval-list li span {
+    margin-right: 0; /* Remove right margin for mobile */
+    padding-right: 0; /* Ensure no extra padding */
+  }
+}
+
