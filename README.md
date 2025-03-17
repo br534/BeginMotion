@@ -1,1 +1,2 @@
-# BeginMotion
+BeginMotion is a React fitness stopwatch that caters to runners and individuals beginning their fitness journey. The goal of BeginMotion is to time a variety of workouts while keeping a record of sessions over time.  The core functionality includes a timer that displays minutes, seconds and milliseconds. The app also includes control buttons that enable users to start, pause, reset, and record an interval split. The recorded intervals will be displayed in a list .BeginMotion will have a responsive interface that displays different levels of detail depending if the user is viewing on mobile vs desktop.  Mapbox API has been integrated in the app to be further improved by adding real time routing.
+
