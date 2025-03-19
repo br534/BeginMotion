@@ -1,8 +1,7 @@
-
 import React from "react";
-import './List.css';
+import './List.css';//import styling for List
 
-
+//creating a list function to display intervals
 function List({ list }) {
   let previousTime = 0; 
   let totalTime = 0; 
@@ -15,10 +14,10 @@ function List({ list }) {
           // Calculate the time difference between the current and the previous interval
           const timeDifference = index === 0 ? interval : interval - previousTime;
 
-          // Update the total time by adding the time difference
+          // calculation to update the total time by adding the time difference
           totalTime += timeDifference;
 
-          // Update the previous time to the current interval for the next iteration
+          // Updates the previous time to the current interval 
           previousTime = interval;
 
           return (
@@ -34,7 +33,7 @@ function List({ list }) {
   );
 }
 
-// Helper function to format time in hh:mm:ss.mmm
+//  Formating time 
 const formatTime = (time) => {
   const minutes = Math.floor((time % 3600000) / 60000);
   const seconds = Math.floor((time % 60000) / 1000);

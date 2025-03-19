@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import './ProgressPage.css';
+import 'mapbox-gl/dist/mapbox-gl.css';//styling for mapbox
+import './ProgressPage.css';//import styling for Progress Page Component
 
-// Set the Mapbox access token
-mapboxgl.accessToken = 'pk.eyJ1IjoiYnI1MzQiLCJhIjoiY203d25yN2F1MDc5YzJrb2Q3b3YwMGRqbCJ9.prvDAwWmoHZTbD9NY93DPw'; // Replace with your Mapbox access token
+// Adding the Mapbox access token
+mapboxgl.accessToken = 'pk.eyJ1IjoiYnI1MzQiLCJhIjoiY203d25yN2F1MDc5YzJrb2Q3b3YwMGRqbCJ9.prvDAwWmoHZTbD9NY93DPw'; 
 
-// Helper function to format the time
+// Format the time for displaying total time
 const formatTime = (time) => {
   const minutes = Math.floor((time % 3600000) / 60000);
   const seconds = Math.floor((time % 60000) / 1000);
@@ -20,7 +20,7 @@ const formatTime = (time) => {
     String(milliSeconds).padStart(2, "0")
   );
 };
-
+//function to for displaying total time, historical splits and map
 function ProgressPage() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ function ProgressPage() {
         center: [markerLongitude, markerLatitude],
         zoom: 12,
       });
-
+        //marker for map
       new mapboxgl.Marker()
         .setLngLat([markerLongitude, markerLatitude])
         .addTo(mapInstance);
@@ -64,19 +64,17 @@ function ProgressPage() {
     }
   }, [markerLongitude, markerLatitude]);
 
-  // Fallback for totalTime if it's undefined or null
+  // Display 00:00:00 is total time is null
   const displayTotalTime = totalTime ? formatTime(totalTime) : "00:00.00";
 
+//retun total time and historical time for each session
+//Dislay back button to navigate back to the stopwatch and display map
   return (
     <>
       <h1>BeginMotion</h1>
-
-      {/* Display Total Time for Current Session */}
       <div className="current-session-total-time">
         <h4>Total Time: {displayTotalTime}</h4>
       </div>
-
-      {/* Display Historical Session Total Time */}
       <h4>History</h4>
       {historicalSplits.length === 0 ? (
         <p>No historical sessions available.</p>
@@ -85,21 +83,16 @@ function ProgressPage() {
           {historicalSplits.map((session, index) => (
             <div key={index}>
               <h4>Session {index + 1}: {formatTime(session.totalTime)}</h4>
-              {/* Do not show splits here, just the total time */}
             </div>
           ))}
         </div>
       )}
-
-      {/* Back Button */}
       <button className="back-button" onClick={() => navigate(-1)}>Back</button>
-
-      {/* Map Container */}
       <h4>Current Location</h4>
       <div style={{ marginTop: '20px' }}>
         <div
           ref={mapContainer}
-          style={{ width: '100%', height: '200px' }} // Ensure the map container has height and width
+          style={{ width: '100%', height: '200px' }} 
         />
       </div>
     </>

@@ -58,27 +58,42 @@ body {
   cursor: pointer;
 }
 
-/* Media Queries for Mobile View */
-@media (max-width: 768px) {
+/* Mobile styles (screens 480px and smaller) */
+@media (max-width: 480px) {
   h1 {
-      font-size: 2em;
+    font-size: 2.5em; 
+    margin: 10px; 
+  }
+
+  body {
+    padding: 10px; 
+    flex-direction: column;
+    justify-content: flex-start; 
+    place-items: center;
   }
 
   .timer {
-      font-size: 24px;
+    font-size: 24px; 
+    padding: 15px;
   }
 
   .stopwatch {
-      padding: 5%;
+    padding: 5%;
+    margin: 10px auto;
   }
 
   .buttons {
-      flex-direction: column;
-      gap: 15px;
+    gap: 8px;
+    flex-direction: column; 
+    margin-top: 10px;
+    align-items: center; 
   }
 
   .progress-button {
-      padding: 8px 16px;
-      font-size: 0.9rem;
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px; 
+    padding: 12px 25px; 
+    font-size: 1.2rem; 
   }
 }

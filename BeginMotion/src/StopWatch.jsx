@@ -31,26 +31,26 @@ function StopWatch() {
   const handleInterval = () => {
     setList((prevList) => {
       const updatedList = [...prevList, time];
-      setIntervalsRecorded(updatedList.length > 0); // Update the flag to show interval info when intervals are recorded
+      setIntervalsRecorded(updatedList.length > 0); // display intervals when recorded
       return updatedList;
     });
   };
-
+  //functionality to start the stopwatch
   const startStopWatch = () => {
     setIsRunning(true);
   };
-
+//functionality to pause stopwatch
   const pauseStopWatch = () => {
     setIsRunning(!isRunning);
   };
-
+//functionality to reset the stopwatch
   const resetStopWatch = () => {
     setIsRunning(false);
     setTime(0);
     setList([]); // Clear list on reset
-    setIntervalsRecorded(false); // Reset the intervals recorded flag
+    setIntervalsRecorded(false); // Reset recorded intervals
   };
-
+//saving interval splits and total tine to local storage
   const saveSplitsToLocalStorage = () => {
     const historicalSplits = JSON.parse(localStorage.getItem("historicalSplits")) || [];
     const newSession = { totalTime: time, splits: list };
@@ -81,8 +81,6 @@ function StopWatch() {
         </span>
         <button className="progress-button" onClick={goToProgressPage}> View Progress</button>
       </div>
-
-      
       {intervalsRecorded && (
           <List list={list} /> 
       )}
@@ -90,7 +88,7 @@ function StopWatch() {
   );
 }
 
-// Format time to mm:ss.ss (2 digits for milliseconds)
+// Format time for stopwatch as mm:ss:ms (2 digits)
 const formatTime = (time) => {
   const minutes = Math.floor((time % 3600000) / 60000);
   const seconds = Math.floor((time % 60000) / 1000);
